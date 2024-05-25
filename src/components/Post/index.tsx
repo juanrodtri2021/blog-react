@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { type Post, getPosts, getCommentsPost, } from '../../service/getPosts';
+import { type Post, getPosts } from '../../service/getPosts';
 import { useNavigate } from 'react-router-dom';
 
 const Post: React.FC = () => {

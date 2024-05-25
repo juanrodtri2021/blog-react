@@ -11,5 +11,5 @@ export interface Post {
   };
 }
 
-export const getPosts = (page: number) => api.get<{ data: Post }>(`/post?${page}=1&limit=10`);
+export const getPosts = (page: number) => api.get<{ data: Post }>(`/post?$page=${page}&limit=10`);
 export const getCommentsPost = (id: string) => api.get<{ data: Post }>(`/post/${id}/comment`);

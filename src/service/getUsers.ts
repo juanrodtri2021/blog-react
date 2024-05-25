@@ -1,3 +1,3 @@
-import api from "./api";
+import { api } from "./api";
 
-export const users = () => api.get('/user');
+export const users = (page: number) => api.get(`/user?page=${page}&limit=10`);
