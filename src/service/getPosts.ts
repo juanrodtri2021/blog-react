@@ -11,4 +11,4 @@ export interface Post {
   };
 }
 
-export const getPosts = () => api.get<{ data: Post }>('/post');
+export const getPosts = () => api.get<{ data: Post }>('/post?page=1&limit=10');

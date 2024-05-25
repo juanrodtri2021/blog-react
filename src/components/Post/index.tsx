@@ -1,46 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { type Post, getPosts, } from '../../service/getPosts';
-import { getTags } from '../../service/getTags';
 
 const Post: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [tags, setTags] = useState<[]>([]);
-  const [selectedTag, setSelectedTag] = useState<string>('');
 
   useEffect(() => {
-    getPosts().then((response) => console.log(response));
-    getTags().then((response) => console.log(response));
+    getPosts().then((response) => setPosts(response.data.data));
   }, []);
 
-  const handleTagClick = (tag: string) => {
-    setSelectedTag(tag);
-  };
-
-  console.log(import.meta.env.VITE_SOME_KEY)
-  const filteredPosts = selectedTag
-    ? posts.filter(post => post.tags.includes(selectedTag))
-    : posts
 
   return (
     <div>
-      <div>
-        <h2>Tags</h2>
-        <ul>
-          {tags.map(tag => (
-            <li key={tag} onClick={() => handleTagClick(tag)}>
-              {tag}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2>Posts</h2>
-        {filteredPosts.map(post => (
-          <div key={post.id}>
-            <img src={post.image} alt={post.text} />
-            <h3>{post.text}</h3>
-            <p>By: {post.owner.firstName} {post.owner.lastName}</p>
-            <p>Tags: {post.tags.join(', ')}</p>
+      <div className='mt-6 flex flex-col justify-center items-center gap-1'>
+        <h1 className="text-xl font-bold text-gray-700 md:text-2xl">Post</h1>
+        {posts.map(post => (
+          <div className=' mt-3 p-4 w-64 bg-white rounded-lg shadow-m' key={post.id}>
+            <img className="h-full w-full object-cover" src={post.image} alt={post.text} />
+            <p className='mt-2 text-gray-800'>{post.text}</p>
+            <p className="mt-2 text-xs text-gray-500">By: {post.owner.firstName} {post.owner.lastName}</p>
+            <p className='ml-4 text-xs inline-flex items-center font-bold px-2 py-1 bg-orange-200 text-orange-700 rounded-full'>Tags: {post.tags.join(', ')}</p>
           </div>
         ))}
       </div>
